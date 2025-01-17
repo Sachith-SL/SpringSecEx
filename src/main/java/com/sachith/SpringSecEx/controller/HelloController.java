@@ -1,9 +1,8 @@
-package com.sachith.SpringSecEx;
+package com.sachith.SpringSecEx.controller;
 
 import com.sachith.SpringSecEx.dto.Request;
 import com.sachith.SpringSecEx.dto.Response;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +19,5 @@ public class HelloController {
     @PostMapping("/")
     public Response postTest(@RequestBody Request request){
         return new Response("Success");
-    }
-
-    @GetMapping("/csrf-token")
-    public CsrfToken getCsrfToken(HttpServletRequest request){
-
-        return (CsrfToken) request.getAttribute("_csrf");
     }
 }
