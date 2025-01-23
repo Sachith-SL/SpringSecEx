@@ -1,33 +1,38 @@
 package com.sachith.SpringSecEx.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-public class UserPrincipal implements UserDetails {
+@Entity
+@Data
+public class OurUser implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String email;
+    private String name;
+    private String password;
+    private String city;
+    private String role;
 
-    private User user;
-
-    public UserPrincipal(User user) {
-        this.user = user;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
-    }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return email;
     }
 
     @Override
